@@ -67,7 +67,11 @@
     +-------------+---------------+
     Explanation: The average experience years for the first project is (3 + 2 + 1) / 3 = 2.00 and for the second project is (3 + 2) / 2 = 2.50
 */
---- Solution: using avg function to count average experience
-SELECT project_id, AVG(experience_years) AS average_years FROM Project LEFT JOIN Employee ON (
+--- Solution: using avg function to count average experience and using round function to rounded average years
+SELECT project_id, ROUND(AVG(experience_years), 2) AS average_years 
+FROM Project 
+LEFT JOIN Employee 
+ON (
     Project.employee_id = Employee.employee_id
-) GROUP BY project_id;
+) 
+GROUP BY project_id;
