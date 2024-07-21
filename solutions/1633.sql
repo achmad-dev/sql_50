@@ -73,7 +73,8 @@ WITH total_users AS (
   FROM Users
 )
 SELECT r.contest_id, 
-       ROUND((COUNT(DISTINCT r.user_id) * 100.0 / (SELECT total_users from total_users)), 2) AS percentage
+       ROUND((COUNT(DISTINCT r.user_id) * 100.0 / tu.total_users), 2) AS percentage
 FROM Register r
-GROUP BY r.contest_id
-ORDER BY percentage DESC, contest_id;
+CROSS JOIN total_users tu
+GROUP BY r.contest_id, tu.total_users
+ORDER BY percentage DESC, r.contest_id;
